@@ -17,44 +17,49 @@ class App extends React.Component {
         this.timer = null;
     }
 
+    componentDidMount() {
+        this.recoverState();
+    }
+
+    recoverState = () => {
+        for (const key in this.state) {
+            if (localStorage.hasOwnProperty(key)) {
+                this.setState({ [key]: JSON.parse(localStorage.getItem(key))});
+            }
+        }
+    };
+
+    updateState = (key, value) => {
+        this.setState({ [key]: value });
+        localStorage.setItem(key, JSON.stringify(value));
+    };
+
     nextStatus = () => {
         clearInterval(this.timer);
         let nextStatus = this.state.currentStatus + 1;
         if(nextStatus > 7) {
-            this.setState({
-                currentStatus: 0,
-                isOn: false
-            });
+            this.updateState('currentStatus', 0);
+            this.updateState('isOn', false);
         } else {
-            this.setState({
-                currentStatus: nextStatus,
-                isOn: false
-            });
+            this.updateState('currentStatus', nextStatus);
+            this.updateState('isOn', false);
         }
         // 0p - 1s - 2p - 3s - 4p - 5s - 6p - 7l
         if(this.state.currentStatus % 2 !== 0) {
             if(this.state.currentStatus === 7) {
-                this.setState({
-                    currentTimer: this.state.longBreakTime
-                });
+                this.updateState('currentTimer', this.state.longBreakTime);
             } else {
-                this.setState({
-                    currentTimer: this.state.shortBreakTime
-                });
+                this.updateState('currentTimer', this.state.shortBreakTime);
             }
         } else {
-            this.setState({
-                currentTimer: this.state.pomodoroTime
-            });
+            this.updateState('currentTimer', this.state.pomodoroTime);
         }
     };
 
     tick = () => {
         this.timer = setInterval(() => {
             let time = this.state.currentTimer - 1000;
-            this.setState({
-                currentTimer: time
-            });
+            this.updateState('currentTimer', time);
             if(time === 0) {
                 this.nextStatus();
             }
@@ -62,50 +67,36 @@ class App extends React.Component {
     };
 
     resetCurrentTimer = () => {
-        this.setState({
-            currentTimer: this.state.pomodoroTime
-        });
+        this.updateState('currentTimer', this.state.pomodoroTime);
     };
 
     handleStartTimer = () => {
         this.tick();
-        this.setState({
-            isOn: true
-        });
+        this.updateState('isOn', true);
     };
 
     handlePauseTimer = () => {
         clearInterval(this.timer);
-        this.setState({
-            isOn: false
-        });
+        this.updateState('isOn', false);
     };
 
     handleStopTimer = () => {
         clearInterval(this.timer);
         this.resetCurrentTimer();
-        this.setState({
-            isOn: false
-        });
+        this.updateState('isOn', false);
     };
 
     handleChangePomodoroTime = (time) => {
-        this.setState({
-            pomodoroTime: time,
-            currentTimer: time
-        });
+        this.updateState('pomodoroTime', time);
+        this.updateState('currentTimer', time);
     };
 
     handleChangeShortBreak = (time) => {
-        this.setState({
-            shortBreakTime: time
-        });
+        this.updateState('shortBreakTime', time);
     };
 
     handleChangeLongBreak = (time) => {
-        this.setState({
-            longBreakTime: time
-        });
+        this.updateState('longBreakTime', time);
     };
 
     render() {
