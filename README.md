@@ -15,5 +15,5 @@
 
 - [x] PWA
 - [ ] Add sound
-- [ ] Save settings and status on localstorage
+- [x] Save settings and status on localstorage
 - [ ] Add simple Pomodoro list
