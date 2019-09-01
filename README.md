@@ -6,10 +6,10 @@
 ### ScreenShot
 
 #### Mobile
-![mobile](mobile.jpeg =500x)
+<img src="mobile.jpeg" alt="mobile" width="45%" height="auto"/>
 
 #### Desktop
-![desktop](desktop.png =500x)
+<img src="desktop.png" alt="desktop" width="45%" height="auto"/>
 
 ### Todo
 
