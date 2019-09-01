@@ -9,7 +9,7 @@
 <img src="mobile.jpeg" alt="mobile" width="45%" height="auto"/>
 
 #### Desktop
-<img src="desktop.png" alt="desktop" width="45%" height="auto"/>
+<img src="desktop.png" alt="desktop" width="auto" height="45%"/>
 
 ### Todo
 
