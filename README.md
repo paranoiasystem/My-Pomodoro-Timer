@@ -1,7 +1,7 @@
 # :tomato: My Pomodoro Timer
 
 ## Live Preview 
-[Click Here](https://build.mferraioli25.now.sh)
+[Click Here](https://my-pomodoro-timer.mferraioli25.now.sh/)
 
 ### ScreenShot
 
