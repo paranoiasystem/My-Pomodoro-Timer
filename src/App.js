@@ -135,7 +135,6 @@ export default class App extends Component {
                     ''
                 }
                 <div className="row pt-2">
-                    <div className="col"></div>
                     <div className="col text-center">
                         <h3><Emoji emoji="🍅"/> My Pomodoro Timer</h3>
                     </div>
