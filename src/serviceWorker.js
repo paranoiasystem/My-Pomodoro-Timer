@@ -12,12 +12,12 @@
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+  // [::1] is the IPv6 localhost address.
+  window.location.hostname === '[::1]' ||
+  // 127.0.0.1/8 is considered localhost for IPv4.
+  window.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+  )
 );
 
 export function register(config) {
@@ -43,7 +43,7 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
+            'worker. To learn more, visit https://bit.ly/CRA-PWA'
           );
         });
       } else {
@@ -71,9 +71,9 @@ function registerValidSW(swUrl, config) {
               // content until all client tabs are closed.
               console.log(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
               );
-
+              displayUpdateNotification();
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
@@ -124,6 +124,21 @@ function checkValidServiceWorker(swUrl, config) {
         'No internet connection found. App is running in offline mode.'
       );
     });
+}
+
+function displayUpdateNotification() {
+
+  const link = document.createElement('a');
+  link.classList.add('update-notification');
+  link.setAttribute('href', '#');
+  link.innerHTML = 'Update is available. Click here to install.';
+
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.reload();
+  });
+
+  document.querySelector('body').appendChild(link);
 }
 
 export function unregister() {

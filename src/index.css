@@ -1,2 +1,13 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+.update-notification {
+    background-color: #222;
+    color: #fff;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0.8em 1.2em;
+    text-decoration: none;
+}
