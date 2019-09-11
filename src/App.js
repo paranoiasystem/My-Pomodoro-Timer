@@ -5,6 +5,8 @@ import Emoji from './components/Emoji/Emoji'
 import SetTimer from './components/SetTimer/SetTimer'
 import Timer from './components/Timer/Timer'
 
+import './App.css'
+
 export default class App extends Component {
     constructor(props) {
         super(props)
@@ -92,17 +94,20 @@ export default class App extends Component {
         this.updateState('currentTimer', this.state.pomodoroTime)
     }
 
-    handleStartTimer = () => {
+    handleStartTimer = (e) => {
+        e.preventDefault();
         this.tick()
         this.updateState('isOn', true)
     }
 
-    handlePauseTimer = () => {
+    handlePauseTimer = (e) => {
+        e.preventDefault();
         clearInterval(this.timer)
         this.updateState('isOn', false)
     }
 
-    handleStopTimer = () => {
+    handleStopTimer = (e) => {
+        e.preventDefault();
         clearInterval(this.timer)
         this.resetCurrentTimer()
         this.updateState('isOn', false)
@@ -115,49 +120,58 @@ export default class App extends Component {
 
     handleChangeShortBreak = (time) => {
         this.updateState('shortBreakTime', time)
+        this.updateState('currentTimer', time)
     }
 
     handleChangeLongBreak = (time) => {
         this.updateState('longBreakTime', time)
+        this.updateState('currentTimer', time)
     }
 
-    handleChangeAudioSetting = () => {
+    handleChangeAudioSetting = (e) => {
+        e.preventDefault()
         this.updateState('audioOn', (!this.state.audioOn))
     }
 
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 {
                     (this.state.audioOn) ? 
                     <Sound url={bell} playStatus={this.state.play} onFinishedPlaying={this.handleSongFinishedPlaying} />
                     :
                     ''
                 }
-                <div className="row pt-2">
-                    <div className="col text-center">
-                        <h3><Emoji emoji="🍅"/> My Pomodoro Timer</h3>
+                <div className="row mt-2">
+                    <div className="col pt-1 text-left title">
+                        <h5><Emoji emoji="🍅"/> My Pomodoro Timer</h5>
                     </div>
-                    <div className="col text-center">
+                    <div className="col pt-1 text-right">
                         {
                             (this.state.audioOn) ? 
-                            <button type="button" class="btn btn-success"><i className="fas fa-volume-up" onClick={this.handleChangeAudioSetting}></i></button>
+                            <button type="button" className="btn btn-success"><i className="fas fa-volume-up" onClick={this.handleChangeAudioSetting}></i></button>
                             :
-                            <button type="button" class="btn btn-secondary"><i className="fas fa-volume-mute" onClick={this.handleChangeAudioSetting}></i></button>
+                            <button type="button" className="btn btn-secondary"><i className="fas fa-volume-mute" onClick={this.handleChangeAudioSetting}></i></button>
                         }
-                        
                     </div>
                 </div>
                 <Timer time={this.state.currentTimer} isOn={this.state.isOn} currentStatus={this.state.currentStatus} startTimer={this.handleStartTimer} pauseTimer={this.handlePauseTimer} stopTimer={this.handleStopTimer}/>
-                <div className="row pt-3">
-                    <div className="col text-center">
-                        <SetTimer name="Pomodoro Time" time={this.state.pomodoroTime} isOn={this.state.isOn} onChangeTime={this.handleChangePomodoroTime}/>
+                <div className="card text-center mt-5">
+                    <div className="card-header">
+                        Time Settings
                     </div>
-                    <div className="col text-center">
-                        <SetTimer name="Short Break" time={this.state.shortBreakTime} isOn={this.state.isOn} onChangeTime={this.handleChangeShortBreak}/>
-                    </div>
-                    <div className="col text-center">
-                        <SetTimer name="Long Break" time={this.state.longBreakTime} isOn={this.state.isOn} onChangeTime={this.handleChangeLongBreak}/>
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col text-center">
+                                <SetTimer name="Pomodoro Time" time={this.state.pomodoroTime} isOn={this.state.isOn} onChangeTime={this.handleChangePomodoroTime}/>
+                            </div>
+                            <div className="col text-center">
+                                <SetTimer name="Short Break" time={this.state.shortBreakTime} isOn={this.state.isOn} onChangeTime={this.handleChangeShortBreak}/>
+                            </div>
+                            <div className="col text-center">
+                                <SetTimer name="Long Break" time={this.state.longBreakTime} isOn={this.state.isOn} onChangeTime={this.handleChangeLongBreak}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

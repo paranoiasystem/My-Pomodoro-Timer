@@ -2,17 +2,14 @@ import React from 'react'
 import prettyMilliseconds from 'pretty-ms'
 import './SetTimer.css'
 
-export default function SetTimer(props) {
-    const name = props.name
-    const isOn = props.isOn
-    const time = props.time
-    const onChangeTime = props.onChangeTime
-
-    const incrementTime = () => {
+export default function SetTimer({ name, isOn, time, onChangeTime}) {
+    const incrementTime = (e) => {
+        e.preventDefault()
         onChangeTime(time + 60000)
     }
 
-    const decrementTime = () => {
+    const decrementTime = (e) => {
+        e.preventDefault()
         if(time > 60000)
             onChangeTime(time - 60000);
     }

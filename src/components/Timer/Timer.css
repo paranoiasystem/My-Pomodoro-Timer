@@ -1,0 +1,9 @@
+.timer {
+    margin: 10px auto 0 auto;
+    width: 17rem;
+    height: 17rem;
+    border: 3px solid #000;
+    border-radius: 50%;
+    background-color: #fbf2f5;
+    cursor: pointer;
+}
